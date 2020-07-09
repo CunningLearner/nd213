@@ -204,7 +204,7 @@ float LinuxParser::CpuUtilizationProcess(int pid){
   std::ifstream stream_(kProcDirectory + std::to_string(pid) + kStatFilename);
   if(stream_.is_open()){
     total_time = ActiveJiffies(pid); //utime + stime + cutime + cstime;
-    seconds = UpTime() - UpTime(pid);
+    seconds = UpTime(pid);
     cpu_usage = ((total_time / Hertz) / seconds);
   }
   return cpu_usage;
@@ -289,7 +289,7 @@ long LinuxParser::UpTime(int pid) {
     std::istringstream linestream(line);
     std::istream_iterator<string> beg(linestream), end;
     vector<string> values(beg, end);
-    return ((long) std::stoi(values[21]) / sysconf(_SC_CLK_TCK));
+    return UpTime() - ((long) std::stoi(values[21]) / sysconf(_SC_CLK_TCK));
   }
   return 0;
 }
