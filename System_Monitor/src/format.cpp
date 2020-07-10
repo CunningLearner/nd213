@@ -5,16 +5,13 @@
 using std::string;
 using std::to_string;
 
-// TODO: Complete this helper function
 // INPUT: Long int measuring seconds
 // OUTPUT: HH:MM:SS
-// REMOVE: [[maybe_unused]] once you define the function
 string Format::ElapsedTime(long seconds) {
-  long hour = seconds/60/60;
-  long rem = (seconds%3600);// * seconds / hour;
-  long min = rem/60;
-  rem = rem%60;//(rem/60 - (float)min) * hour / min;
-//   int sec = rem/100;  
+  const long hour = seconds/60/60;
+  long rem = (seconds%3600);
+  const long min = rem/60;
+  rem = rem%60;
   return OutputTime(hour) + ":" + OutputTime(min) + ":" + OutputTime(rem);
 }
 
