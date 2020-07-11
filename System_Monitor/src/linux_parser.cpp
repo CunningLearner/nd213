@@ -223,7 +223,8 @@ string LinuxParser::Ram(int pid) {
     while(std::getline(stream, line)){
       std::istringstream linestream(line);
       linestream >> mem_token >> mem_size;
-      if(mem_token == "VmSize:") res_ram = std::stoi(mem_size) / 1024;
+      // Used VmData as VmSize gives memory usage more than your Physical RAM size!
+      if(mem_token == "VmData:") res_ram = std::stoi(mem_size) / 1024;
     }
   }
   return to_string(res_ram);
